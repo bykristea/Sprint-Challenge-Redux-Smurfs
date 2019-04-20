@@ -1,6 +1,6 @@
 1.  Name 3 JavaScript Array/Object Methods that do not produce side-effects? Which method do we use to create a new object while extending the properties of another object?
 
-A: .Get, .Post, .Put. Post adds in the functionality to add to a database.
+A: .map, .filter .objectAssign. .map is used to produce a new array with props extended from the object. 
 
 2.  Describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
 
@@ -19,7 +19,7 @@ A: a bridge between dispatch and reducer.
 
 5.  Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
 
-A: redux-thunk is a middlware that calls actions that are functions and passes the action to redux itself. 
+A: A thunk is a function that wraps an expression to delay its evaluation. Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods dispatch and getState as parameters.. 
 
 
 6.  Which `react-redux` method links up our `components` with our `redux store`?
