@@ -1,7 +1,7 @@
 /*
   Be sure to import in all of the action types from `../actions`
 */
-import { FETCHING, GET_SMURFS, ERROR } from "../actions";
+import { FETCHING, GET_SMURFS, ERROR, DELETE_SMURF } from "../actions";
 
 
 
@@ -43,6 +43,9 @@ const reducer = (state = initialState, action) => {
       return  Object.assign({}, state, { fetchingSmurfs: false, error: action.error })
     default:
       return state
+
+    case DELETE_SMURF:
+      return Object.assign({}, state, {smurfs: state.smurfs.filter( smurf => smurf.id !== action.payload) })
   }
 }
 

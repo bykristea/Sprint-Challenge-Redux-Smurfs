@@ -7,6 +7,7 @@ import axios from "axios";
 export const FETCHING = 'FETCHING';
 export const GET_SMURFS = 'GET_SMURFS';
 export const ERROR = 'ERROR';
+export const DELETE_SMURF ='DELETE_SMURF';
 
 /*
   For this project you'll need at least 2 action creators for the main portion,
@@ -19,6 +20,9 @@ export const ERROR = 'ERROR';
    D - deleteSmurf
 */
 
+export const deleteSmurf = id => {
+  return {type: DELETE_SMURF, payload: id}
+}
 export const addSmurf = (addedSmurf) => {
   return (dispatch) => {
     dispatch({ type: FETCHING });
