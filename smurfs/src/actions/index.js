@@ -1,8 +1,13 @@
+import axios from "axios";
+
 /* 
   Action Types Go Here!
   Be sure to export each action type so you can pull it into your reducer
 */
-import axios from 'axios';
+export const FETCHING = 'FETCHING';
+export const GET_SMURFS = 'GET_SMURFS';
+export const ERROR = 'ERROR';
+
 /*
   For this project you'll need at least 2 action creators for the main portion,
    and 2 more for the stretch problem.
@@ -14,33 +19,30 @@ import axios from 'axios';
    D - deleteSmurf
 */
 
-export const FETCH_SMURFS_START = 'FETCH_SMURFS_START';
-export const FETCH_SMURFS_SUCCESS = 'FETCH_SMURFS_SUCCESS';
-export const FETCH_SMURFS_FAIL = 'FETCH_SMURFS_FAIL';
-
-export const ADD_SMURFS_START = 'ADD_SMURFS_FAIL';
-export const ADD_SMURFS_SUCCESS = 'ADD_SMURFS_FAIL';
-export const ADD_SMURFS_FAIL = 'ADD_SMURFS_FAIL';
-
-
-
-export const addSmurf = (addSmurf) => dispatch => {
-  dispatch({type: ADD_SMURFS_START });
-  axios
-    .post('http://localhost:3333/smurfs', addSmurf)
-    .then(response => {
-      dispatch({ type: ADD_SMURFS_SUCCESS, payload: response.data});
-    })
-    .catch(err => {
-      dispatch({type: ADD_SMURFS_FAIL, error:'Smurf ran away...better go get em.'})
-    })
+export const addSmurf = (addedSmurf) => {
+  return (dispatch) => {
+    dispatch({ type: FETCHING });
+    axios 
+      .post(`http://localhost:3333/smurfs`, addedSmurf)
+      .then(response => {
+        dispatch({ type: GET_SMURFS, smurfs: response.data })
+      })
+      .catch(err => {
+        dispatch({ type: ERROR, error: "Gargamel has all the smurfs!"})
+      });
+  }
 }
 
-export const getSmurfs = () => dispatch => {
-  dispatch({ type: FETCH_SMURFS_START });
-  axios
-  .get('http://localhost:3333/smurfs')
-  .then(response =>
-    dispatch({ type: FETCH_SMURFS_SUCCESS, payload: response.data.results }))
-    .catch(err => dispatch({type: FETCH_SMURFS_FAIL, error: 'Smurfs will be smurfs..try again'}))
+export const getSmurfs = () => {
+  return (dispatch) => {
+    dispatch({ type: FETCHING });
+    axios
+      .get(`http://localhost:3333/smurfs`)
+      .then(response => {
+        dispatch({ type: GET_SMURFS, smurfs: response.data })
+      })
+      .catch(err => {
+        dispatch({ type: ERROR, error: "You weren't able to rescue a smurf from Gargamel!" })
+      });
+  }
 }
